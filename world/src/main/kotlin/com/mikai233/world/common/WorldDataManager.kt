@@ -6,6 +6,7 @@ import com.mikai233.common.extension.tryCatchSuspend
 import com.mikai233.common.runtime.support.GameEntityKinds
 import com.mikai233.common.runtime.support.mongoDB
 import com.mikai233.common.time.GameTime
+import com.mikai233.world.actor.WorldActor
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import io.github.realmlabs.asteria.core.EntityKind
 import io.github.realmlabs.asteria.core.ServiceRegistry

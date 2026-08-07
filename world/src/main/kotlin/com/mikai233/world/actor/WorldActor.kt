@@ -1,4 +1,4 @@
-package com.mikai233.world.common
+package com.mikai233.world.actor
 
 import com.google.protobuf.GeneratedMessage
 import com.mikai233.common.broadcast.PlayerBroadcastEnvelope
@@ -7,7 +7,9 @@ import com.mikai233.common.event.WorldActiveEvent
 import com.mikai233.common.extension.ask
 import com.mikai233.common.extension.tell
 import com.mikai233.common.message.Message
-import com.mikai233.common.runtime.*
+import com.mikai233.common.runtime.WorldRuntimeState
+import com.mikai233.common.runtime.WorldRuntimeStatus
+import com.mikai233.common.runtime.recordMessageDispatch
 import com.mikai233.common.runtime.support.GameEntityKinds
 import com.mikai233.common.runtime.support.broadcastRouter
 import com.mikai233.common.runtime.support.coroutineScope
@@ -17,12 +19,14 @@ import com.mikai233.common.runtime.support.localEntityRegistry
 import com.mikai233.common.runtime.support.system
 import com.mikai233.common.runtime.support.worldRuntimeStateStore
 import com.mikai233.common.time.ActorGameTime
-import com.mikai233.protocol.ProtoRpcWorld.WorldShutdownAck
-import com.mikai233.protocol.ProtoSystem.GmReq
+import com.mikai233.protocol.ProtoRpcWorld
+import com.mikai233.protocol.ProtoSystem
 import com.mikai233.protocol.idForServerMessage
-import com.mikai233.world.node.WorldNode
+import com.mikai233.world.common.WorldDataManager
+import com.mikai233.world.common.WorldSessionManager
 import com.mikai233.world.message.HandoffWorld
 import com.mikai233.world.message.WorldTick
+import com.mikai233.world.node.WorldNode
 import io.github.realmlabs.asteria.actor.ActorLifecycleGate
 import io.github.realmlabs.asteria.actor.ActorTimerSupport
 import io.github.realmlabs.asteria.actor.AsteriaActor
@@ -114,7 +118,7 @@ class WorldActor(val node: WorldNode) : AsteriaActor<WorldNode>(node) {
     }
 
     private fun handleProtobufMessage(message: GeneratedMessage) {
-        if (message is GmReq && sessionManager[message.playerId] == null) {
+        if (message is ProtoSystem.GmReq && sessionManager[message.playerId] == null) {
             logger.warning("Session[{}] not found", message.playerId)
             return
         }
@@ -141,7 +145,7 @@ class WorldActor(val node: WorldNode) : AsteriaActor<WorldNode>(node) {
         context.become(receiveBuilder().build())
         launch(timeout = null) {
             val result = runCatching { manager.flush() }
-            val ack = WorldShutdownAck.newBuilder()
+            val ack = ProtoRpcWorld.WorldShutdownAck.newBuilder()
                 .setWorldId(worldId)
                 .setShutdownPlanId(planId)
                 .setSuccess(result.getOrDefault(false))

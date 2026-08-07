@@ -1,6 +1,6 @@
 package com.mikai233.world.config
 
-import com.mikai233.world.common.WorldActor
+import com.mikai233.world.actor.WorldActor
 import io.github.realmlabs.asteria.config.annotations.AsteriaConfigChangeCatalog
 
 @AsteriaConfigChangeCatalog(

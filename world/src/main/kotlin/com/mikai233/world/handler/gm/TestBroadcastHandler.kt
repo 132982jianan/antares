@@ -4,7 +4,7 @@ import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.broadcast.Topic
 import com.mikai233.protocol.ProtoTest.TestResp
 import com.mikai233.world.common.PlayerSession
-import com.mikai233.world.common.WorldActor
+import com.mikai233.world.actor.WorldActor
 
 @AllOpen
 class TestBroadcastHandler {

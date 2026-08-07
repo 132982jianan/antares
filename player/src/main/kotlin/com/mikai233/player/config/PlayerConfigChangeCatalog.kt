@@ -1,6 +1,6 @@
 package com.mikai233.player.config
 
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import io.github.realmlabs.asteria.config.annotations.AsteriaConfigChangeCatalog
 
 @AsteriaConfigChangeCatalog(

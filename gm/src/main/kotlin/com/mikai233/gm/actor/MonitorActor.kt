@@ -1,4 +1,4 @@
-package com.mikai233.gm.common
+package com.mikai233.gm.actor
 
 import com.mikai233.gm.node.GmNode
 import io.github.realmlabs.asteria.actor.AsteriaActor

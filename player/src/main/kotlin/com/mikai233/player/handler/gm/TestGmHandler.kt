@@ -2,7 +2,7 @@ package com.mikai233.player.handler.gm
 
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.extension.logger
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import com.mikai233.protocol.gmResp
 
 @AllOpen

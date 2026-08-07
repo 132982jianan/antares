@@ -4,7 +4,7 @@ import com.mikai233.common.extension.logger
 import com.mikai233.common.runtime.support.gameConfigSnapshot
 import com.mikai233.common.runtime.support.gameWorldConfigs
 import com.mikai233.config.luban.tbItem
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import io.github.realmlabs.asteria.script.ActorScript
 import io.github.realmlabs.asteria.script.ActorScriptContext
 

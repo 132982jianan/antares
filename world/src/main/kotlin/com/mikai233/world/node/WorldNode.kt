@@ -19,7 +19,7 @@ import com.mikai233.common.runtime.support.patchableServices
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupReq
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupResp
 import com.mikai233.world.common.GamePatchBindings
-import com.mikai233.world.common.WorldActor
+import com.mikai233.world.actor.WorldActor
 import com.mikai233.world.common.WorldGameTimeReloadPlan
 import com.mikai233.world.common.WorldMongoIndexModule
 import com.mikai233.world.generated.GeneratedWorldConfigChangeHandlers

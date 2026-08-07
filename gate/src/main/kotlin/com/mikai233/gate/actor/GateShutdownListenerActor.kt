@@ -1,31 +1,30 @@
-package com.mikai233.gate.common
+package com.mikai233.gate.actor
 
 import com.mikai233.common.extension.decodeActorRef
 import com.mikai233.common.runtime.support.system
 import com.mikai233.common.shutdown.GATE_DRAIN_TOPIC
 import com.mikai233.gate.node.GateNode
-import com.mikai233.protocol.ProtoRpcShutdown.GateDrainAck
-import com.mikai233.protocol.ProtoRpcShutdown.GateDrainCommand
+import com.mikai233.protocol.ProtoRpcShutdown
 import io.github.realmlabs.asteria.actor.AsteriaActor
 import org.apache.pekko.actor.Props
 import org.apache.pekko.cluster.pubsub.DistributedPubSub
-import org.apache.pekko.cluster.pubsub.DistributedPubSubMediator.Subscribe
+import org.apache.pekko.cluster.pubsub.DistributedPubSubMediator
 
 class GateShutdownListenerActor(val node: GateNode) : AsteriaActor<GateNode>(node) {
     private val mediator = DistributedPubSub.get(context.system).mediator()
 
     override fun preStart() {
         super.preStart()
-        mediator.tell(Subscribe(GATE_DRAIN_TOPIC, self), self)
+        mediator.tell(DistributedPubSubMediator.Subscribe(GATE_DRAIN_TOPIC, self), self)
     }
 
     override fun createReceive(): Receive {
         return receiveBuilder()
-            .match(GateDrainCommand::class.java) { handleGateDrain(it) }
+            .match(ProtoRpcShutdown.GateDrainCommand::class.java) { handleGateDrain(it) }
             .build()
     }
 
-    private fun handleGateDrain(command: GateDrainCommand) {
+    private fun handleGateDrain(command: ProtoRpcShutdown.GateDrainCommand) {
         val coordinator = command.coordinatorActor.decodeActorRef(node.system)
         node.connectionDrainer.beginDrain(
             planId = command.planId,
@@ -35,7 +34,7 @@ class GateShutdownListenerActor(val node: GateNode) : AsteriaActor<GateNode>(nod
         val playerIds = node.connectionDrainer.activePlayerIds
         node.connectionDrainer.closeAll()
         coordinator.tell(
-            GateDrainAck.newBuilder()
+            ProtoRpcShutdown.GateDrainAck.newBuilder()
                 .setPlanId(command.planId)
                 .setGateNodeId(node.nodeId)
                 .addAllPlayerId(playerIds)

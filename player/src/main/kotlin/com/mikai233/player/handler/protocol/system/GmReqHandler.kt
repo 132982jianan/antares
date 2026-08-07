@@ -6,7 +6,7 @@ import com.mikai233.common.extension.invokeOnTargetMode
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.common.runtime.support.gameTimeOverrideStore
 import com.mikai233.common.runtime.support.gameTimeSource
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import com.mikai233.player.common.PlayerHandlerContext
 import com.mikai233.player.common.PlayerMessageHandler
 import com.mikai233.player.handler.gm.TestGmHandler

@@ -2,7 +2,7 @@ package com.mikai233.player.patch
 
 import com.mikai233.common.extension.logger
 import com.mikai233.player.common.GamePatchBindings
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import com.mikai233.player.service.LoginService
 import com.mikai233.protocol.ProtoRpcPlayer.PlayerCreateReq
 import io.github.realmlabs.asteria.patch.RuntimePatchInstallContext

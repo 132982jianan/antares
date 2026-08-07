@@ -1,5 +1,6 @@
 package com.mikai233.player.common
 
+import com.mikai233.player.actor.PlayerActor
 import io.github.realmlabs.asteria.message.ActorHandlerContext
 import io.github.realmlabs.asteria.message.MessageHandler
 import io.github.realmlabs.asteria.message.PatchableMessageHandlerRegistry

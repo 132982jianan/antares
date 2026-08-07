@@ -3,7 +3,7 @@ package com.mikai233.player.service
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.broadcast.Topic
 import com.mikai233.common.runtime.support.mongoDB
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import com.mikai233.player.data.PlayerMem
 import com.mikai233.player.entity.ChatMessageLog
 import com.mikai233.player.entity.OfflinePrivateChatMessage

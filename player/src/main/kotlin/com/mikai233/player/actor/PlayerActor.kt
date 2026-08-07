@@ -1,4 +1,4 @@
-package com.mikai233.player.common
+package com.mikai233.player.actor
 
 import com.google.protobuf.GeneratedMessage
 import com.mikai233.common.event.GameConfigChangedEvent
@@ -6,18 +6,19 @@ import com.mikai233.common.event.PlayerCreateEvent
 import com.mikai233.common.event.PlayerLoginEvent
 import com.mikai233.common.extension.ask
 import com.mikai233.common.message.Message
+import com.mikai233.common.runtime.recordMessageDispatch
 import com.mikai233.common.runtime.support.GameEntityKinds
 import com.mikai233.common.runtime.support.gameTimeSource
 import com.mikai233.common.runtime.support.localEntityRegistry
-import com.mikai233.common.runtime.recordMessageDispatch
 import com.mikai233.common.runtime.support.system
 import com.mikai233.common.time.ActorGameTime
-import com.mikai233.player.node.PlayerNode
+import com.mikai233.player.common.PlayerDataManager
 import com.mikai233.player.message.HandoffPlayer
 import com.mikai233.player.message.PlayerTick
+import com.mikai233.player.node.PlayerNode
 import com.mikai233.protocol.ProtoLogin
-import com.mikai233.protocol.ProtoRpcGate.ChannelExpiredReq
-import com.mikai233.protocol.ProtoRpcPlayer.PlayerShutdownAck
+import com.mikai233.protocol.ProtoRpcGate
+import com.mikai233.protocol.ProtoRpcPlayer
 import io.github.realmlabs.asteria.actor.ActorLifecycleGate
 import io.github.realmlabs.asteria.actor.ActorTimerSupport
 import io.github.realmlabs.asteria.actor.AsteriaActor
@@ -132,7 +133,7 @@ class PlayerActor(val node: PlayerNode) : AsteriaActor<PlayerNode>(node) {
             channelActor?.let {
                 logger.info("player:{} unbind old channel actor:{}", playerId, it)
                 it.tell(
-                    ChannelExpiredReq.newBuilder()
+                    ProtoRpcGate.ChannelExpiredReq.newBuilder()
                         .setReason(ProtoLogin.ConnectionExpiredNotify.Reason.MultiLogin_VALUE)
                         .build(),
                     self,
@@ -157,7 +158,7 @@ class PlayerActor(val node: PlayerNode) : AsteriaActor<PlayerNode>(node) {
         context.become(receiveBuilder().build())
         launch(timeout = null) {
             val result = runCatching { manager.flush() }
-            val ack = PlayerShutdownAck.newBuilder()
+            val ack = ProtoRpcPlayer.PlayerShutdownAck.newBuilder()
                 .setPlayerId(playerId)
                 .setShutdownPlanId(planId)
                 .setSuccess(result.getOrDefault(false))

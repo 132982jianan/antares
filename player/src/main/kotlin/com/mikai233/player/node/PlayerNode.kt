@@ -16,7 +16,7 @@ import com.mikai233.common.runtime.support.LaunchableNode
 import com.mikai233.common.runtime.support.entityShard
 import com.mikai233.common.runtime.support.patchableServices
 import com.mikai233.player.common.GamePatchBindings
-import com.mikai233.player.common.PlayerActor
+import com.mikai233.player.actor.PlayerActor
 import com.mikai233.player.common.PlayerGameTimeReloadPlan
 import com.mikai233.player.common.PlayerMongoIndexModule
 import com.mikai233.player.generated.GeneratedPlayerConfigChangeHandlers
