@@ -19,12 +19,11 @@ import kotlinx.coroutines.future.await
 import org.apache.pekko.actor.ActorRef
 import org.apache.pekko.actor.ActorSystem
 
+
+//////////////////////////get/////////////////////////////
+
 val NodeRuntime.system: ActorSystem
     get() = services.get(ActorSystem::class)
-
-suspend fun NodeRuntime.awaitTermination() {
-    system.getWhenTerminated().await()
-}
 
 val NodeRuntime.coroutineScope: CoroutineScope
     get() = services.get(CoroutineScope::class)
@@ -62,6 +61,15 @@ val NodeRuntime.playerBroadcastEventBus: PlayerBroadcastEventBus
 val NodeRuntime.patchableServices: PatchableServiceRegistry
     get() = services.get(PatchableServiceRegistry::class)
 
+private val NodeRuntime.gameWorldConfigService: GameWorldConfigService
+    get() = services.get(GameWorldConfigService::class)
+
+
+//////////////////////////方法/////////////////////////////
+suspend fun NodeRuntime.awaitTermination() {
+    system.getWhenTerminated().await()
+}
+
 fun NodeRuntime.entityShard(kind: String): ActorRef {
     return services.get(EntityShardRegistry::class)[EntityKind(kind)]
 }
@@ -69,6 +77,3 @@ fun NodeRuntime.entityShard(kind: String): ActorRef {
 fun NodeRuntime.singletonActor(name: String): ActorRef {
     return services.get(SingletonActorRegistry::class)[SingletonName(name)]
 }
-
-private val NodeRuntime.gameWorldConfigService: GameWorldConfigService
-    get() = services.get(GameWorldConfigService::class)
