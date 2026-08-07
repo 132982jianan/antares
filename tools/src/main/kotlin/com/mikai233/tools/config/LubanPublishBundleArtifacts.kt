@@ -1,6 +1,6 @@
 package com.mikai233.tools.config
 
-import com.mikai233.config.luban.unpackZipEntries
+import com.mikai233.config.luban.common.unpackZipEntries
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.exists

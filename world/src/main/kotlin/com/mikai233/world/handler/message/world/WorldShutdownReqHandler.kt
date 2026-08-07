@@ -5,8 +5,8 @@ import com.mikai233.common.extension.decodeActorRef
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.common.runtime.system
 import com.mikai233.protocol.ProtoRpcWorld.WorldShutdownReq
-import com.mikai233.world.WorldHandlerContext
-import com.mikai233.world.WorldMessageHandler
+import com.mikai233.world.common.WorldHandlerContext
+import com.mikai233.world.common.WorldMessageHandler
 import io.github.realmlabs.asteria.message.AsteriaMessageHandler
 
 @AllOpen

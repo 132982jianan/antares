@@ -326,6 +326,8 @@ abstract class GenerateGatewayRoutingTask : DefaultTask() {
         val gatewaySessionContext = ClassName("io.github.realmlabs.asteria.gateway", "GatewaySessionContext")
         val clientProtobuf = ClassName("com.mikai233.gate.message", "ClientProtobuf")
         val gatewayRouteSources = ClassName("com.mikai233.common.message", "GatewayRouteSources")
+        val gatePlayerIdKey = ClassName("com.mikai233.gate.common", "GatePlayerIdKey")
+        val gateWorldIdKey = ClassName("com.mikai233.gate.common", "GateWorldIdKey")
         return FunSpec.builder("resolveLongSource")
             .addModifiers(com.squareup.kotlinpoet.KModifier.PRIVATE)
             .addParameter("source", String::class)
@@ -340,12 +342,14 @@ abstract class GenerateGatewayRoutingTask : DefaultTask() {
                 gatewayRouteSources,
             )
             .addStatement(
-                "source == %T.SESSION_PLAYER_ID -> requireNotNull(context.session.get(com.mikai233.gate.GatePlayerIdKey))",
+                "source == %T.SESSION_PLAYER_ID -> requireNotNull(context.session.get(%T))",
                 gatewayRouteSources,
+                gatePlayerIdKey,
             )
             .addStatement(
-                "source == %T.SESSION_WORLD_ID -> requireNotNull(context.session.get(com.mikai233.gate.GateWorldIdKey))",
+                "source == %T.SESSION_WORLD_ID -> requireNotNull(context.session.get(%T))",
                 gatewayRouteSources,
+                gateWorldIdKey,
             )
             .addStatement("source == %T.ROUTE_ENTITY_ID -> route.entityId as Long", gatewayRouteSources)
             .addStatement("source.isBlank() -> error(%P)", "route spec has no source")

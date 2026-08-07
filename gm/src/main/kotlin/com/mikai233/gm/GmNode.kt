@@ -6,6 +6,7 @@ import com.mikai233.common.conf.RuntimeEnv
 import com.mikai233.common.config.SYSTEM_NAME
 import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.runtime.*
+import com.mikai233.gm.common.GmRuntimeModule
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.github.realmlabs.asteria.cluster.pekko.PekkoSingletonStartup

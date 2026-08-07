@@ -2,7 +2,7 @@ package com.mikai233.world.patch
 
 import com.mikai233.common.rpc.FieldOverrideRpcEntityIdResolver
 import com.mikai233.common.rpc.RpcEntityIdResolver
-import com.mikai233.world.GamePatchBindings
+import com.mikai233.world.common.GamePatchBindings
 import io.github.realmlabs.asteria.patch.RuntimePatchInstallContext
 import io.github.realmlabs.asteria.patch.RuntimePatchPlugin
 

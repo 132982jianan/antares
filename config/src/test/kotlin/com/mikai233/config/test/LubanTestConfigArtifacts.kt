@@ -1,9 +1,9 @@
 package com.mikai233.config.test
 
-import com.mikai233.config.luban.GAME_CONFIG_BUNDLE_METADATA_PATH
+import com.mikai233.config.luban.common.GAME_CONFIG_BUNDLE_METADATA_PATH
 import com.mikai233.config.luban.GeneratedLubanMetadata
-import com.mikai233.config.luban.encodeGameConfigBundleMetadata
-import com.mikai233.config.luban.unpackZipEntries
+import com.mikai233.config.luban.common.encodeGameConfigBundleMetadata
+import com.mikai233.config.luban.common.unpackZipEntries
 import io.github.realmlabs.asteria.config.publisher.ConfigPublicationArtifact
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import java.io.ByteArrayOutputStream

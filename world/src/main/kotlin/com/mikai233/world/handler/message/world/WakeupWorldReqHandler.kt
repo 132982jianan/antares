@@ -5,8 +5,8 @@ import com.mikai233.common.extension.tell
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupReq
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupResp
-import com.mikai233.world.WorldHandlerContext
-import com.mikai233.world.WorldMessageHandler
+import com.mikai233.world.common.WorldHandlerContext
+import com.mikai233.world.common.WorldMessageHandler
 import io.github.realmlabs.asteria.message.AsteriaMessageHandler
 
 @AllOpen

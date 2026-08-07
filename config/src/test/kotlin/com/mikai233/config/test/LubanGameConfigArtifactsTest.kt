@@ -1,7 +1,7 @@
 package com.mikai233.config.test
 
-import com.mikai233.config.luban.GAME_CONFIG_BUNDLE_METADATA_PATH
-import com.mikai233.config.luban.gameConfigBundleMetadata
+import com.mikai233.config.luban.common.GAME_CONFIG_BUNDLE_METADATA_PATH
+import com.mikai233.config.luban.common.gameConfigBundleMetadata
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

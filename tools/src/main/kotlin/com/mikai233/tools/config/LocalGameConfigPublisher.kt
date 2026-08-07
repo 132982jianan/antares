@@ -1,10 +1,10 @@
 package com.mikai233.tools.config
 
 import com.mikai233.common.config.GAME_CONFIG_PUBLICATION
-import com.mikai233.config.luban.GameConfigPublicationZipLoader
+import com.mikai233.config.luban.common.GameConfigPublicationZipLoader
 import com.mikai233.config.luban.GameTables
 import com.mikai233.config.luban.GameTablesSnapshotBridge
-import com.mikai233.config.luban.gameConfigBundleMetadata
+import com.mikai233.config.luban.common.gameConfigBundleMetadata
 import com.mikai233.config.luban.query.GameConfigQueryBuilders
 import com.mikai233.config.luban.validation.GameConfigValidators
 import io.github.realmlabs.asteria.config.ConfigRevision

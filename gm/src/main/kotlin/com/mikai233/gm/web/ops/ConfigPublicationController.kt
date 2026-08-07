@@ -4,9 +4,9 @@ import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.config.GAME_CONFIG_PUBLICATION
 import com.mikai233.config.luban.GameTables
 import com.mikai233.config.luban.GameTablesSnapshotBridge
-import com.mikai233.config.luban.gameConfigBundleMetadata
+import com.mikai233.config.luban.common.gameConfigBundleMetadata
 import com.mikai233.config.luban.query.GameConfigQueryBuilders
-import com.mikai233.config.luban.unpackZipEntries
+import com.mikai233.config.luban.common.unpackZipEntries
 import com.mikai233.config.luban.validation.GameConfigValidators
 import io.github.realmlabs.asteria.cluster.config.ClusterConfigControlService
 import io.github.realmlabs.asteria.cluster.config.ClusterConfigReloadResult

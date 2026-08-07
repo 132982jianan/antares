@@ -15,14 +15,6 @@ private enum class ValidationMode {
     QUERIES,
 }
 
-fun main(args: Array<String>) = runBlocking {
-    require(args.isNotEmpty()) {
-        "usage: GameConfigValidationCli <tables|queries> [generatedDataDir]"
-    }
-    val mode = ValidationMode.valueOf(args[0].uppercase())
-    val generatedDataDir = args.getOrNull(1)?.let(Path::of) ?: defaultGeneratedDataDir()
-    loadSnapshot(generatedDataDir, includeQueries = mode == ValidationMode.QUERIES)
-}
 
 private suspend fun loadSnapshot(generatedDataDir: Path, includeQueries: Boolean) {
     check(generatedDataDir.exists()) {
@@ -54,4 +46,13 @@ private fun defaultGeneratedDataDir(): Path {
         .resolve("luban")
         .resolve("resources")
         .resolve("luban")
+}
+
+suspend fun main(args: Array<String>) {
+    require(args.isNotEmpty()) {
+        "usage: GameConfigValidationCli <tables|queries> [generatedDataDir]"
+    }
+    val mode = ValidationMode.valueOf(args[0].uppercase())
+    val generatedDataDir = args.getOrNull(1)?.let(Path::of) ?: defaultGeneratedDataDir()
+    loadSnapshot(generatedDataDir, includeQueries = mode == ValidationMode.QUERIES)
 }
