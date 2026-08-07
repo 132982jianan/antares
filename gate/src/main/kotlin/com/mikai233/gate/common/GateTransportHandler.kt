@@ -3,6 +3,7 @@ package com.mikai233.gate.common
 import com.mikai233.common.extension.logger
 import com.mikai233.common.extension.tell
 import com.mikai233.common.runtime.support.system
+import com.mikai233.gate.actor.ChannelActor
 import com.mikai233.gate.node.GateNode
 import com.mikai233.gate.message.StopChannel
 import io.github.realmlabs.asteria.core.NodeState

@@ -1,6 +1,6 @@
 package com.mikai233.gate.script
 
-import com.mikai233.gate.common.ChannelActor
+import com.mikai233.gate.actor.ChannelActor
 import io.github.realmlabs.asteria.script.ActorScript
 import io.github.realmlabs.asteria.script.ActorScriptContext
 
