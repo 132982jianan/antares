@@ -39,8 +39,6 @@ import org.apache.pekko.cluster.sharding.ShardRegion
 import kotlin.time.Duration.Companion.seconds
 
 class WorldActor(val node: WorldNode) : AsteriaActor<WorldNode>(node) {
-
-
     val worldId: Long = self.path().name().toLong()
     val gameTime: ActorGameTime = node.gameTimeSource.actorTime()
 
