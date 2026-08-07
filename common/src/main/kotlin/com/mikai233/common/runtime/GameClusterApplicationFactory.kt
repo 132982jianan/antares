@@ -69,10 +69,16 @@ internal data class GameClusterApplicationRequest(
     }
 }
 
+/*
+工厂接口，定义了一个 build 方法，接收请求参数，返回构建好的 AsteriaApplication 。实现类提供具体的构建逻辑
+ */
 internal interface GameClusterApplicationFactory {
     fun build(request: GameClusterApplicationRequest): AsteriaApplication
 }
 
+/*
+优先从配置中读取 game.cluster.discovery 的值（集群发现模式）；若无此配置项则为 null
+ */
 internal object GameClusterApplicationFactories {
     fun select(config: Config): GameClusterApplicationFactory {
         val configuredMode = if (config.hasPath("game.cluster.discovery")) {
@@ -80,21 +86,50 @@ internal object GameClusterApplicationFactories {
         } else {
             null
         }
+
+        //- 环境变量 CLUSTER_DISCOVERY （最高优先级）
+        //- 配置文件 game.cluster.discovery
+        //- 默认值 "config-center" （最低优先级）
         val raw = System.getenv("CLUSTER_DISCOVERY") ?: configuredMode ?: "config-center"
+
         return when (raw.lowercase()) {
-            "kubernetes", "k8s" -> KubernetesGameClusterApplicationFactory
-            "config-center", "zookeeper", "zk", "topology" -> ConfigCenterGameClusterApplicationFactory
+            //Kubernetes 集群发现工厂
+            "kubernetes",
+            "k8s",
+                -> KubernetesGameClusterApplicationFactory
+
+            //配置中心集群发现工厂
+            "config-center",
+            "zookeeper",
+            "zk",
+            "topology",
+                -> ConfigCenterGameClusterApplicationFactory
+
             else -> error("Unsupported cluster discovery mode: $raw")
         }
     }
 }
 
+/*
+AsteriaApplicationBuilder 的扩展函数，将请求中的模块按顺序安装到应用构建器上。
+ */
 internal fun AsteriaApplicationBuilder.installGameNodeModules(request: GameClusterApplicationRequest) {
+    //设置应用名称为节点运行时名称。
     name = request.runtime.name
+
+    //安装通用模块。 ::install 是 Kotlin 的方法引用，等价于 request.commonModules.forEach { install(it) } 。
     request.commonModules.forEach(::install)
+
+    //安装集群初始化 前 的模块
     request.beforeClusterModules.forEach(::install)
+
+    //执行调用者传入的自定义配置 lambda，允许对 builder 做额外定制
     request.configure(this)
+
+    //安装协程作用域模块（项目内部模块）
     install(PekkoCoroutineScopeModule())
+
+    //安装脚本模块，配置了两种脚本引擎（Groovy 和 Jar），并启用了节点级脚本和 Actor 级脚本
     install(
         ScriptModule {
             engine(GroovyScriptEngine())
@@ -103,6 +138,10 @@ internal fun AsteriaApplicationBuilder.installGameNodeModules(request: GameClust
             allowActorScripts = true
         },
     )
+
+    //安装 Pekko 补丁控制模块
     install(PekkoPatchControlModule())
+
+    //最后安装集群初始化 后 的模块
     request.afterClusterModules.forEach(::install)
 }
