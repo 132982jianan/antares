@@ -16,17 +16,11 @@ suspend fun main(args: Array<String>) {
         .addObject(cli)
         .build()
         .parse(*args)
+
     val addr = InetSocketAddress(cli.host, cli.port)
     val config = ConfigFactory.load(cli.conf)
-    GlobalNode(
-        addr,
-        cli.name,
-        cli.nodeId ?: "global-${cli.port}",
-        config,
-        cli.zookeeper,
-        runtimeEnv = runtimeEnv,
-    ).also {
-        it.launch()
-        it.awaitTermination()
-    }
+    val globalNode =
+        GlobalNode(addr, cli.name, cli.nodeId ?: "global-${cli.port}", config, cli.zookeeper, runtimeEnv = runtimeEnv)
+    globalNode.launch()
+    globalNode.awaitTermination()
 }

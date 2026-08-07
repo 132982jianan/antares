@@ -10,16 +10,18 @@ import java.net.InetSocketAddress
 
 suspend fun main(args: Array<String>) {
     val runtimeEnv = RuntimeEnv.fromSystem()
+
     val cli = Cli(runtimeEnv)
     @Suppress("SpreadOperator")
     JCommander.newBuilder()
         .addObject(cli)
         .build()
         .parse(*args)
+
     val addr = InetSocketAddress(cli.host, cli.port)
     val config = ConfigFactory.load(cli.conf)
-    GateNode(addr, cli.name, cli.nodeId ?: "gate-${cli.port}", config, cli.zookeeper, runtimeEnv = runtimeEnv).also {
-        it.launch()
-        it.awaitTermination()
-    }
+
+    val gateNode = GateNode(addr, cli.name, cli.nodeId ?: "gate-${cli.port}", config, cli.zookeeper, runtimeEnv = runtimeEnv)
+    gateNode.launch()
+    gateNode.awaitTermination()
 }
