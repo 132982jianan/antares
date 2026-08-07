@@ -14,7 +14,7 @@ import com.mikai233.common.runtime.support.LaunchableNode
 import com.mikai233.common.runtime.support.entityShard
 import com.mikai233.gate.common.GamePatchBindings
 import com.mikai233.gate.common.GateConnectionDrainer
-import com.mikai233.gate.common.GateGatewayRouter
+import com.mikai233.gate.routing.GateGatewayRouter
 import com.mikai233.gate.common.GateGatewayTransportModule
 import com.mikai233.gate.common.GateProtocolCodec
 import com.mikai233.gate.generated.GeneratedGateNodeDispatchers
