@@ -4,8 +4,8 @@ import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.config.ActorConfigSyncMem
 import com.mikai233.common.event.WorldActiveEvent
 import com.mikai233.common.message.DispatcherKeys
-import com.mikai233.world.common.WorldHandlerContext
-import com.mikai233.world.common.WorldMessageHandler
+import com.mikai233.world.WorldHandlerContext
+import com.mikai233.world.WorldMessageHandler
 import io.github.realmlabs.asteria.config.ConfigService
 import io.github.realmlabs.asteria.message.AsteriaMessageHandler
 

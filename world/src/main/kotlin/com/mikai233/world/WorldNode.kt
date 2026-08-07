@@ -12,10 +12,6 @@ import com.mikai233.common.runtime.*
 import com.mikai233.common.runtime.module.WORLD_WAKE_TASK
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupReq
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupResp
-import com.mikai233.world.common.GamePatchBindings
-import com.mikai233.world.common.WorldActor
-import com.mikai233.world.common.WorldGameTimeReloadPlan
-import com.mikai233.world.common.WorldMongoIndexModule
 import com.mikai233.world.generated.GeneratedWorldConfigChangeHandlers
 import com.mikai233.world.generated.GeneratedWorldNodeDispatchers
 import com.mikai233.world.message.HandoffWorld

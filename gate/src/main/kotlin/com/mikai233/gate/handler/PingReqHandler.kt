@@ -3,8 +3,8 @@ package com.mikai233.gate.handler
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.common.message.GatewayRoutes
-import com.mikai233.gate.common.ChannelHandlerContext
-import com.mikai233.gate.common.ChannelMessageHandler
+import com.mikai233.gate.ChannelHandlerContext
+import com.mikai233.gate.ChannelMessageHandler
 import com.mikai233.protocol.ProtoSystem.PingReq
 import com.mikai233.protocol.pingResp
 import io.github.realmlabs.asteria.message.AsteriaGatewayRoute

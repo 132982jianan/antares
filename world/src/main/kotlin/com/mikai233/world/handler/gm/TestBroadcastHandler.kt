@@ -3,8 +3,8 @@ package com.mikai233.world.handler.gm
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.broadcast.Topic
 import com.mikai233.protocol.ProtoTest.TestResp
-import com.mikai233.world.common.PlayerSession
-import com.mikai233.world.common.WorldActor
+import com.mikai233.world.PlayerSession
+import com.mikai233.world.WorldActor
 
 @AllOpen
 class TestBroadcastHandler {

@@ -10,8 +10,6 @@ import com.mikai233.common.rpc.RpcEntityIdResolver
 import com.mikai233.common.runtime.*
 import com.mikai233.global.actor.ShutdownCoordinatorActor
 import com.mikai233.global.actor.WorkerActor
-import com.mikai233.global.common.GamePatchBindings
-import com.mikai233.global.common.GlobalGameTimeReloadPlan
 import com.mikai233.global.message.HandoffShutdownCoordinator
 import com.mikai233.global.message.HandoffWorker
 import com.typesafe.config.Config

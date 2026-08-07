@@ -10,10 +10,6 @@ import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.rpc.RpcEntityIdResolver
 import com.mikai233.common.runtime.*
 import com.mikai233.common.runtime.module.BattleDiscoveryModule
-import com.mikai233.player.common.GamePatchBindings
-import com.mikai233.player.common.PlayerActor
-import com.mikai233.player.common.PlayerGameTimeReloadPlan
-import com.mikai233.player.common.PlayerMongoIndexModule
 import com.mikai233.player.generated.GeneratedPlayerConfigChangeHandlers
 import com.mikai233.player.generated.GeneratedPlayerNodeDispatchers
 import com.mikai233.player.message.HandoffPlayer

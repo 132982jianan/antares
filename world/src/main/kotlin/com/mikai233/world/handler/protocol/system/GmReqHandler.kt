@@ -5,8 +5,8 @@ import com.mikai233.common.conf.ServerMode
 import com.mikai233.common.extension.invokeOnTargetMode
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.protocol.ProtoSystem.GmReq
-import com.mikai233.world.common.WorldHandlerContext
-import com.mikai233.world.common.WorldMessageHandler
+import com.mikai233.world.WorldHandlerContext
+import com.mikai233.world.WorldMessageHandler
 import com.mikai233.world.handler.gm.TestBroadcastHandler
 import io.github.realmlabs.asteria.message.AsteriaMessageHandler
 
