@@ -32,11 +32,7 @@ import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 
 class PlayerActor(val node: PlayerNode) : AsteriaActor<PlayerNode>(node) {
-    companion object {
-        val PlayerTickDuration = 1.seconds
 
-        fun props(node: PlayerNode): Props = Props.create(PlayerActor::class.java, node)
-    }
 
     val playerId: Long = self.path().name().toLong()
     val gameTime: ActorGameTime = node.gameTimeSource.actorTime()
@@ -198,5 +194,13 @@ class PlayerActor(val node: PlayerNode) : AsteriaActor<PlayerNode>(node) {
         return node.worldSharding.ask(message)
     }
 
-    fun nextId() = node.idGenerator.nextId()
+    fun nextId(): Long {
+        return node.idGenerator.nextId()
+    }
+
+    companion object {
+        val PlayerTickDuration = 1.seconds
+
+        fun props(node: PlayerNode): Props = Props.create(PlayerActor::class.java, node)
+    }
 }

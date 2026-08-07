@@ -8,10 +8,6 @@ import io.github.realmlabs.asteria.script.pekko.ActorScriptSupport
 import org.apache.pekko.actor.Props
 
 class WorkerActor(val node: GlobalNode) : AsteriaActor<GlobalNode>(node) {
-    companion object {
-        fun props(node: GlobalNode): Props = Props.create(WorkerActor::class.java, node)
-    }
-
     private val scripts = ActorScriptSupport(this)
 
     override fun preStart() {
@@ -34,5 +30,9 @@ class WorkerActor(val node: GlobalNode) : AsteriaActor<GlobalNode>(node) {
 
     private fun handleMessage(message: Message) {
         logger.warning("WorkerActor received unsupported message: {}", message)
+    }
+
+    companion object {
+        fun props(node: GlobalNode): Props = Props.create(WorkerActor::class.java, node)
     }
 }

@@ -42,15 +42,7 @@ import org.apache.pekko.cluster.pubsub.DistributedPubSubMediator.Unsubscribe
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.toJavaDuration
 
-class ChannelActor(val node: GateNode, private val session: GatewaySession) :
-    AsteriaActor<GateNode>(node) {
-    companion object {
-        val MaxIdleDuration = 1.minutes
-
-        fun props(node: GateNode, session: GatewaySession): Props =
-            Props.create(ChannelActor::class.java, node, session)
-    }
-
+class ChannelActor(val node: GateNode, private val session: GatewaySession) : AsteriaActor<GateNode>(node) {
     var playerId: Long? = null
     private var worldId: Long? = null
     private lateinit var clientPublicKey: ByteArray
@@ -311,5 +303,12 @@ class ChannelActor(val node: GateNode, private val session: GatewaySession) :
         Connecting,
         Authenticating,
         Authorized,
+    }
+
+    companion object {
+        val MaxIdleDuration = 1.minutes
+
+        fun props(node: GateNode, session: GatewaySession): Props =
+            Props.create(ChannelActor::class.java, node, session)
     }
 }

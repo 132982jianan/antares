@@ -12,12 +12,6 @@ import org.apache.pekko.cluster.pubsub.DistributedPubSub
 import org.apache.pekko.cluster.pubsub.DistributedPubSubMediator.Subscribe
 
 class GateShutdownListenerActor(val node: GateNode) : AsteriaActor<GateNode>(node) {
-    companion object {
-        const val Name = "gateShutdownListener"
-
-        fun props(node: GateNode): Props = Props.create(GateShutdownListenerActor::class.java, node)
-    }
-
     private val mediator = DistributedPubSub.get(context.system).mediator()
 
     override fun preStart() {
@@ -48,5 +42,11 @@ class GateShutdownListenerActor(val node: GateNode) : AsteriaActor<GateNode>(nod
                 .build(),
             self,
         )
+    }
+
+    companion object {
+        const val Name = "gateShutdownListener"
+
+        fun props(node: GateNode): Props = Props.create(GateShutdownListenerActor::class.java, node)
     }
 }

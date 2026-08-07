@@ -35,12 +35,7 @@ import org.apache.pekko.cluster.sharding.ShardRegion
 import kotlin.time.Duration.Companion.seconds
 
 class WorldActor(val node: WorldNode) : AsteriaActor<WorldNode>(node) {
-    companion object {
-        val WorldTickDuration = 1.seconds
-        private const val STATUS_HEARTBEAT_INTERVAL_MILLIS = 10_000L
 
-        fun props(node: WorldNode): Props = Props.create(WorldActor::class.java, node)
-    }
 
     val worldId: Long = self.path().name().toLong()
     val gameTime: ActorGameTime = node.gameTimeSource.actorTime()
@@ -221,5 +216,12 @@ class WorldActor(val node: WorldNode) : AsteriaActor<WorldNode>(node) {
                 .setPayload(message.toByteString())
                 .build(),
         )
+    }
+
+    companion object {
+        val WorldTickDuration = 1.seconds
+        private const val STATUS_HEARTBEAT_INTERVAL_MILLIS = 10_000L
+
+        fun props(node: WorldNode): Props = Props.create(WorldActor::class.java, node)
     }
 }

@@ -6,10 +6,6 @@ import io.github.realmlabs.asteria.script.pekko.ActorScriptSupport
 import org.apache.pekko.actor.Props
 
 class MonitorActor(val node: GmNode) : AsteriaActor<GmNode>(node) {
-    companion object {
-        fun props(node: GmNode): Props = Props.create(MonitorActor::class.java, node)
-    }
-
     private val scripts = ActorScriptSupport(this)
 
     override fun preStart() {
@@ -26,5 +22,9 @@ class MonitorActor(val node: GmNode) : AsteriaActor<GmNode>(node) {
         return receiveBuilder()
             .build()
             .orElse(scripts.receive())
+    }
+
+    companion object {
+        fun props(node: GmNode): Props = Props.create(MonitorActor::class.java, node)
     }
 }

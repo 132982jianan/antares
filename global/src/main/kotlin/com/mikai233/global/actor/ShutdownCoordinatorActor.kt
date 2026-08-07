@@ -20,10 +20,6 @@ import org.apache.pekko.cluster.pubsub.DistributedPubSubMediator.Publish
 import java.time.Duration
 
 class ShutdownCoordinatorActor(val node: GlobalNode) : AsteriaActor<GlobalNode>(node) {
-    companion object {
-        fun props(node: GlobalNode): Props = Props.create(ShutdownCoordinatorActor::class.java, node)
-    }
-
     private val mediator = DistributedPubSub.get(context.system).mediator()
     private val gateDrainTimeout = node.config.getDurationOrDefault(
         "game.shutdown.timeout.gate-drain",
@@ -301,6 +297,10 @@ class ShutdownCoordinatorActor(val node: GlobalNode) : AsteriaActor<GlobalNode>(
         planId?.let(builder::setPlanId)
         requestedBy?.let(builder::setRequestedBy)
         return builder.build()
+    }
+
+    companion object {
+        fun props(node: GlobalNode): Props = Props.create(ShutdownCoordinatorActor::class.java, node)
     }
 }
 
