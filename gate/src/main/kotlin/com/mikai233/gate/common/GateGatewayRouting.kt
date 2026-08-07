@@ -3,7 +3,7 @@ package com.mikai233.gate.common
 import com.google.protobuf.GeneratedMessage
 import com.mikai233.common.runtime.GameEntityKinds
 import com.mikai233.common.runtime.system
-import com.mikai233.gate.GateNode
+import com.mikai233.gate.node.GateNode
 import com.mikai233.gate.generated.GeneratedGatewayRouting
 import com.mikai233.gate.message.ClientProtobuf
 import com.mikai233.protocol.ProtoSystem.GmReq

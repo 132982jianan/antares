@@ -1,7 +1,7 @@
 package com.mikai233.gm.web.config
 
 import com.mikai233.common.annotation.AllOpen
-import com.mikai233.gm.GmNode
+import com.mikai233.gm.node.GmNode
 import io.github.realmlabs.asteria.cluster.config.ClusterConfigControlService
 import io.github.realmlabs.asteria.cluster.pekko.EntityShardRegistry
 import io.github.realmlabs.asteria.cluster.pekko.SingletonActorRegistry

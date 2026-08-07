@@ -1,10 +1,9 @@
-package com.mikai233.world
+package com.mikai233.world.node
 
-import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
 import com.mikai233.common.conf.RuntimeEnv
-import com.mikai233.common.conf.ServerMode
 import com.mikai233.common.config.SYSTEM_NAME
+import com.mikai233.common.conf.ServerMode
 import com.mikai233.common.rpc.DefaultRpcEntityIdResolver
 import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.rpc.RpcEntityIdResolver
@@ -21,7 +20,6 @@ import com.mikai233.world.generated.GeneratedWorldNodeDispatchers
 import com.mikai233.world.message.HandoffWorld
 import com.mikai233.world.service.WorldService
 import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
 import io.github.realmlabs.asteria.cluster.pekko.PekkoEntityWakerModule
 import io.github.realmlabs.asteria.cluster.pekko.actor
 import io.github.realmlabs.asteria.cluster.pekko.allocationStrategy
@@ -182,10 +180,9 @@ class WorldNode(
             }
         }
     }
-
 }
 
-private class Cli(runtimeEnv: RuntimeEnv) {
+internal class Cli(runtimeEnv: RuntimeEnv) {
     @Parameter(names = ["-h", "--host"], description = "host")
     var host: String = runtimeEnv.machineIp
 
@@ -203,20 +200,4 @@ private class Cli(runtimeEnv: RuntimeEnv) {
 
     @Parameter(names = ["-i", "--node-id"], description = "runtime node id")
     var nodeId: String? = null
-}
-
-suspend fun main(args: Array<String>) {
-    val runtimeEnv = RuntimeEnv.fromSystem()
-    val cli = Cli(runtimeEnv)
-    @Suppress("SpreadOperator")
-    JCommander.newBuilder()
-        .addObject(cli)
-        .build()
-        .parse(*args)
-    val addr = InetSocketAddress(cli.host, cli.port)
-    val config = ConfigFactory.load(cli.conf)
-    WorldNode(addr, cli.name, cli.nodeId ?: "world-${cli.port}", config, cli.zookeeper, runtimeEnv = runtimeEnv).also {
-        it.launch()
-        it.awaitTermination()
-    }
 }

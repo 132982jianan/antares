@@ -13,7 +13,7 @@ import com.mikai233.common.runtime.recordMessageDispatch
 import com.mikai233.common.runtime.playerBroadcastEventBus
 import com.mikai233.common.runtime.system
 import com.mikai233.common.time.ActorGameTime
-import com.mikai233.gate.GateNode
+import com.mikai233.gate.node.GateNode
 import com.mikai233.gate.crypto.AESCipher
 import com.mikai233.gate.crypto.ECDH
 import com.mikai233.gate.message.ChannelExpired

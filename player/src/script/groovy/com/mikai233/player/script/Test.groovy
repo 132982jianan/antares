@@ -1,6 +1,6 @@
 package com.mikai233.player.script
 
-import com.mikai233.player.PlayerNode
+import com.mikai233.player.node.PlayerNode
 import io.github.realmlabs.asteria.script.NodeScript
 import io.github.realmlabs.asteria.script.NodeScriptContext
 import org.jetbrains.annotations.NotNull

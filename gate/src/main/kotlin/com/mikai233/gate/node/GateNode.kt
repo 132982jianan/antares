@@ -1,6 +1,5 @@
-package com.mikai233.gate
+package com.mikai233.gate.node
 
-import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
 import com.mikai233.common.conf.RuntimeEnv
 import com.mikai233.common.config.SYSTEM_NAME
@@ -15,7 +14,6 @@ import com.mikai233.gate.common.GateGatewayTransportModule
 import com.mikai233.gate.common.GateProtocolCodec
 import com.mikai233.gate.generated.GeneratedGateNodeDispatchers
 import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
 import io.github.realmlabs.asteria.cluster.pekko.extractor
 import io.github.realmlabs.asteria.core.NodeState
 import io.github.realmlabs.asteria.core.RoleKey
@@ -97,10 +95,9 @@ class GateNode(
             connectionDrainer.beginDrain("node stopping")
         }
     }
-
 }
 
-private class Cli(runtimeEnv: RuntimeEnv) {
+internal class Cli(runtimeEnv: RuntimeEnv) {
     @Parameter(names = ["-h", "--host"], description = "host")
     var host: String = runtimeEnv.machineIp
 
@@ -118,20 +115,4 @@ private class Cli(runtimeEnv: RuntimeEnv) {
 
     @Parameter(names = ["-i", "--node-id"], description = "runtime node id")
     var nodeId: String? = null
-}
-
-suspend fun main(args: Array<String>) {
-    val runtimeEnv = RuntimeEnv.fromSystem()
-    val cli = Cli(runtimeEnv)
-    @Suppress("SpreadOperator")
-    JCommander.newBuilder()
-        .addObject(cli)
-        .build()
-        .parse(*args)
-    val addr = InetSocketAddress(cli.host, cli.port)
-    val config = ConfigFactory.load(cli.conf)
-    GateNode(addr, cli.name, cli.nodeId ?: "gate-${cli.port}", config, cli.zookeeper, runtimeEnv = runtimeEnv).also {
-        it.launch()
-        it.awaitTermination()
-    }
 }

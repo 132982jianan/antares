@@ -1,6 +1,6 @@
 package com.mikai233.gm.common
 
-import com.mikai233.gm.GmNode
+import com.mikai233.gm.node.GmNode
 import io.github.realmlabs.asteria.actor.AsteriaActor
 import io.github.realmlabs.asteria.script.pekko.ActorScriptSupport
 import org.apache.pekko.actor.Props

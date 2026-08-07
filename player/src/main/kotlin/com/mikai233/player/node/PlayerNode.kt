@@ -1,6 +1,5 @@
-package com.mikai233.player
+package com.mikai233.player.node
 
-import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
 import com.mikai233.common.battle.*
 import com.mikai233.common.conf.RuntimeEnv
@@ -20,7 +19,6 @@ import com.mikai233.player.message.HandoffPlayer
 import com.mikai233.player.service.ChatService
 import com.mikai233.player.service.LoginService
 import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
 import io.github.realmlabs.asteria.cluster.pekko.actor
 import io.github.realmlabs.asteria.cluster.pekko.allocationStrategy
 import io.github.realmlabs.asteria.cluster.pekko.extractor
@@ -148,10 +146,9 @@ class PlayerNode(
     private fun updateState(newState: NodeState) {
         currentState = newState
     }
-
 }
 
-private class Cli(runtimeEnv: RuntimeEnv) {
+internal class Cli(runtimeEnv: RuntimeEnv) {
     @Parameter(names = ["-h", "--host"], description = "host")
     var host: String = runtimeEnv.machineIp
 
@@ -169,27 +166,4 @@ private class Cli(runtimeEnv: RuntimeEnv) {
 
     @Parameter(names = ["-i", "--node-id"], description = "runtime node id")
     var nodeId: String? = null
-}
-
-suspend fun main(args: Array<String>) {
-    val runtimeEnv = RuntimeEnv.fromSystem()
-    val cli = Cli(runtimeEnv)
-    @Suppress("SpreadOperator")
-    JCommander.newBuilder()
-        .addObject(cli)
-        .build()
-        .parse(*args)
-    val addr = InetSocketAddress(cli.host, cli.port)
-    val config = ConfigFactory.load(cli.conf)
-    PlayerNode(
-        addr,
-        cli.name,
-        cli.nodeId ?: "player-${cli.port}",
-        config,
-        cli.zookeeper,
-        runtimeEnv = runtimeEnv,
-    ).also {
-        it.launch()
-        it.awaitTermination()
-    }
 }

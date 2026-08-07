@@ -12,7 +12,7 @@ import com.mikai233.common.time.ActorGameTime
 import com.mikai233.protocol.ProtoRpcWorld.WorldShutdownAck
 import com.mikai233.protocol.ProtoSystem.GmReq
 import com.mikai233.protocol.idForServerMessage
-import com.mikai233.world.WorldNode
+import com.mikai233.world.node.WorldNode
 import com.mikai233.world.message.HandoffWorld
 import com.mikai233.world.message.WorldTick
 import io.github.realmlabs.asteria.actor.ActorLifecycleGate

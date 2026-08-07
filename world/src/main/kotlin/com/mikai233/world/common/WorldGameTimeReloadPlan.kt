@@ -7,7 +7,7 @@ import com.mikai233.common.runtime.gameWorldIds
 import com.mikai233.common.runtime.localEntityRegistry
 import com.mikai233.common.runtime.stopForReload
 import com.mikai233.common.runtime.module.WORLD_WAKE_TASK
-import com.mikai233.world.WorldNode
+import com.mikai233.world.node.WorldNode
 import com.mikai233.world.message.HandoffWorld
 import io.github.realmlabs.asteria.cluster.pekko.PekkoEntityWaker
 import java.io.Serializable

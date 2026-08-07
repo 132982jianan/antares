@@ -3,7 +3,7 @@ package com.mikai233.gm.web.ops
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.runtime.gameTimeOverrideStore
 import com.mikai233.common.runtime.gameTimeSource
-import com.mikai233.gm.GmNode
+import com.mikai233.gm.node.GmNode
 import org.springframework.web.bind.annotation.*
 import kotlin.time.Duration.Companion.milliseconds
 

@@ -4,7 +4,7 @@ import com.mikai233.common.config.DataSourceConfig
 import com.mikai233.common.config.ROOT
 import com.mikai233.common.config.SYSTEM_NAME
 import com.mikai233.common.config.mongoUri
-import com.mikai233.gm.GmNode
+import com.mikai233.gm.node.GmNode
 import com.typesafe.config.Config
 import io.github.realmlabs.asteria.cluster.config.ClusterConfigLayout
 import io.github.realmlabs.asteria.cluster.config.RuntimeNodeConfig

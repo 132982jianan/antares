@@ -5,7 +5,7 @@ import com.mikai233.common.runtime.RestartSingletonChild
 import com.mikai233.common.runtime.SingletonChildRestarted
 import com.mikai233.common.runtime.StartupLikeReloadPlan
 import com.mikai233.common.runtime.StartupLikeReloadResult
-import com.mikai233.global.GlobalNode
+import com.mikai233.global.node.GlobalNode
 import kotlin.time.Duration.Companion.seconds
 
 class GlobalGameTimeReloadPlan(

@@ -7,11 +7,11 @@ import com.mikai233.common.extension.asyncZookeeperClient
 import com.mikai233.common.extension.logger
 import com.mikai233.common.runtime.GameRoles
 import com.mikai233.common.runtime.LaunchableNode
-import com.mikai233.gate.GateNode
-import com.mikai233.global.GlobalNode
-import com.mikai233.gm.GmNode
-import com.mikai233.player.PlayerNode
-import com.mikai233.world.WorldNode
+import com.mikai233.gate.node.GateNode
+import com.mikai233.global.node.GlobalNode
+import com.mikai233.gm.node.GmNode
+import com.mikai233.player.node.PlayerNode
+import com.mikai233.world.node.WorldNode
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.github.realmlabs.asteria.cluster.config.ClusterConfigLayout

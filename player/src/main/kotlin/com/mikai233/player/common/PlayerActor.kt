@@ -12,7 +12,7 @@ import com.mikai233.common.runtime.localEntityRegistry
 import com.mikai233.common.runtime.recordMessageDispatch
 import com.mikai233.common.runtime.system
 import com.mikai233.common.time.ActorGameTime
-import com.mikai233.player.PlayerNode
+import com.mikai233.player.node.PlayerNode
 import com.mikai233.player.message.HandoffPlayer
 import com.mikai233.player.message.PlayerTick
 import com.mikai233.protocol.ProtoLogin

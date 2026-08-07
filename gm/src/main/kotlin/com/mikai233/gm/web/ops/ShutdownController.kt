@@ -2,7 +2,7 @@ package com.mikai233.gm.web.ops
 
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.extension.ask
-import com.mikai233.gm.GmNode
+import com.mikai233.gm.node.GmNode
 import com.mikai233.protocol.ProtoRpcShutdown.*
 import org.springframework.web.bind.annotation.*
 import java.util.*

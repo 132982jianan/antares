@@ -2,7 +2,7 @@ package com.mikai233.gate.common
 
 import com.mikai233.common.config.NettyConfig
 import com.mikai233.common.config.nettyConfigPath
-import com.mikai233.gate.GateNode
+import com.mikai233.gate.node.GateNode
 import io.github.realmlabs.asteria.config.center.RuntimeConfigRepository
 import io.github.realmlabs.asteria.core.AsteriaModule
 import io.github.realmlabs.asteria.core.ModuleContext

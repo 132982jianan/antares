@@ -5,7 +5,7 @@ import com.mikai233.common.runtime.StartupLikeReloadPlan
 import com.mikai233.common.runtime.StartupLikeReloadResult
 import com.mikai233.common.runtime.localEntityRegistry
 import com.mikai233.common.runtime.stopForReload
-import com.mikai233.player.PlayerNode
+import com.mikai233.player.node.PlayerNode
 import com.mikai233.player.message.HandoffPlayer
 import kotlin.time.Duration.Companion.seconds
 

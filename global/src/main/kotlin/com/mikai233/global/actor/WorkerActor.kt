@@ -1,7 +1,7 @@
 package com.mikai233.global.actor
 
 import com.mikai233.common.message.Message
-import com.mikai233.global.GlobalNode
+import com.mikai233.global.node.GlobalNode
 import com.mikai233.global.message.HandoffWorker
 import io.github.realmlabs.asteria.actor.AsteriaActor
 import io.github.realmlabs.asteria.script.pekko.ActorScriptSupport

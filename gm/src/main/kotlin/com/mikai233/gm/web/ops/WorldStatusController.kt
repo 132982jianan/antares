@@ -6,7 +6,7 @@ import com.mikai233.common.runtime.WorldRuntimeState
 import com.mikai233.common.runtime.WorldRuntimeStatus
 import com.mikai233.common.runtime.gameWorldConfigs
 import com.mikai233.common.runtime.worldRuntimeStateStore
-import com.mikai233.gm.GmNode
+import com.mikai233.gm.node.GmNode
 import kotlinx.datetime.LocalDateTime
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

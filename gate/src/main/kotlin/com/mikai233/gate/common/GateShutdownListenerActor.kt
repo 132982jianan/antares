@@ -3,7 +3,7 @@ package com.mikai233.gate.common
 import com.mikai233.common.extension.decodeActorRef
 import com.mikai233.common.runtime.system
 import com.mikai233.common.shutdown.GATE_DRAIN_TOPIC
-import com.mikai233.gate.GateNode
+import com.mikai233.gate.node.GateNode
 import com.mikai233.protocol.ProtoRpcShutdown.GateDrainAck
 import com.mikai233.protocol.ProtoRpcShutdown.GateDrainCommand
 import io.github.realmlabs.asteria.actor.AsteriaActor

@@ -1,0 +1,32 @@
+这是设计上的问题，不是冗余。这些 main 入口分三类，每个都是独立可执行进程，无法合并：
+
+   当前所有 `suspend fun main` 入口
+
+   类别                                  │ 文件                                                             │ 为什么需要独立 main
+   --------------------------------------│------------------------------------------------------------------│-----------------------------------------
+   游戏节点（5                           │ GateMain / PlayerMain / WorldMain / GlobalMain / GmMain          │ 每个角色是单独的服务进程，跑在不同机器上
+   个，生产环境各自独立部署为进程/Pod）  │                                                                  │
+   本地开发                              │ Stardust.kt                                                      │ 一键拉起上面 5 个节点（同
+                                         │                                                                  │ JVM），省去逐个启动
+   运维工具（3 个，各自对应一个 Gradle   │ ZookeeperInitializer / PublishLocalGameConfig /                  │ 一次性
+   任务）                                │ KubernetesRuntimeConfigInitializer                               │ CLI，分别用于本地初始化、发布配置、K8s
+                                         │                                                                  │ 初始化
+   配置校验                              │ GameConfigValidationCli                                          │ 校验 Luban 生成的配置包
+
+   为什么不能减少
+
+   关键在于这些 main 不是"同一件事的重复"，而是不同的可执行入口：
+
+   1. 5 个游戏节点：生产部署时 gate / player / world / global / gm 是 5 个独立进程（不同 Pod），各自要有自己的 main。这正是 Stardust
+      存在的意义——本地开发时不用手动启 5 次。
+
+   2. 3 个工具：build.gradle.kts 里各注册了独立的 JavaExec 任务（initializeLocalRuntimeConfig / publishLocalGameConfig /
+      initializeKubernetesRuntimeConfig），对应不同场景的运维操作，互相不可替代。
+
+   3. 工具和节点结构不同：工具类（如 KubernetesRuntimeConfigInitializer）没有 class XxxNode 那种重型类，main 本身就是逻辑主体，整个文件就一个 main +
+      几个私有 helper 函数，已经很简洁，不需要像游戏节点那样拆分。
+
+   所以这些 main 不是"多余"，而是架构决定的。它们和刚才重构的游戏节点入口是两回事——游戏节点是因为 class + Cli + main
+   混在一个文件才需要拆分；工具类本来就是"一个文件一个 main"的干净结构。
+
+   需要我对其中某个做调整吗？

@@ -5,7 +5,7 @@ import com.mikai233.common.runtime.GameRoles
 import com.mikai233.common.runtime.gameWorldIds
 import com.mikai233.common.runtime.system
 import com.mikai233.common.shutdown.GATE_DRAIN_TOPIC
-import com.mikai233.global.GlobalNode
+import com.mikai233.global.node.GlobalNode
 import com.mikai233.global.message.HandoffShutdownCoordinator
 import com.mikai233.protocol.ProtoRpcPlayer.PlayerShutdownAck
 import com.mikai233.protocol.ProtoRpcShutdown.*
