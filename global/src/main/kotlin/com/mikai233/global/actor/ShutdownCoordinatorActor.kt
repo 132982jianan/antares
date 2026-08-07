@@ -1,9 +1,9 @@
 package com.mikai233.global.actor
 
 import com.mikai233.common.extension.encodeActorRef
-import com.mikai233.common.runtime.GameRoles
-import com.mikai233.common.runtime.gameWorldIds
-import com.mikai233.common.runtime.system
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.gameWorldIds
+import com.mikai233.common.runtime.support.system
 import com.mikai233.common.shutdown.GATE_DRAIN_TOPIC
 import com.mikai233.global.node.GlobalNode
 import com.mikai233.global.message.HandoffShutdownCoordinator

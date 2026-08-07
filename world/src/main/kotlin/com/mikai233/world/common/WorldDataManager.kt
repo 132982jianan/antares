@@ -3,8 +3,8 @@ package com.mikai233.world.common
 import com.mikai233.common.db.MongoDB
 import com.mikai233.common.extension.logger
 import com.mikai233.common.extension.tryCatchSuspend
-import com.mikai233.common.runtime.GameEntityKinds
-import com.mikai233.common.runtime.mongoDB
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.mongoDB
 import com.mikai233.common.time.GameTime
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import io.github.realmlabs.asteria.core.EntityKind

@@ -4,7 +4,7 @@ import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.extension.encodeActorRef
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.common.message.GatewayRoutes
-import com.mikai233.common.runtime.system
+import com.mikai233.common.runtime.support.system
 import com.mikai233.protocol.ProtoLogin
 import com.mikai233.protocol.ProtoLogin.LoginReq
 import com.mikai233.protocol.ProtoPlayer

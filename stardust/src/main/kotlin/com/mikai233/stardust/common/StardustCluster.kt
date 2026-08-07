@@ -5,8 +5,8 @@ import com.mikai233.common.conf.RuntimeEnv
 import com.mikai233.common.config.SYSTEM_NAME
 import com.mikai233.common.extension.asyncZookeeperClient
 import com.mikai233.common.extension.logger
-import com.mikai233.common.runtime.GameRoles
-import com.mikai233.common.runtime.LaunchableNode
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.LaunchableNode
 import com.mikai233.gate.node.GateNode
 import com.mikai233.global.node.GlobalNode
 import com.mikai233.gm.node.GmNode

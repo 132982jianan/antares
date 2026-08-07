@@ -9,6 +9,12 @@ import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.rpc.RpcEntityIdResolver
 import com.mikai233.common.runtime.*
 import com.mikai233.common.runtime.module.BattleDiscoveryModule
+import com.mikai233.common.runtime.support.ClusterNodeBootstrap
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.LaunchableNode
+import com.mikai233.common.runtime.support.entityShard
+import com.mikai233.common.runtime.support.patchableServices
 import com.mikai233.player.common.GamePatchBindings
 import com.mikai233.player.common.PlayerActor
 import com.mikai233.player.common.PlayerGameTimeReloadPlan

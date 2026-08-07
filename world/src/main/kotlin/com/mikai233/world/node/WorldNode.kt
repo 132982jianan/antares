@@ -9,6 +9,13 @@ import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.rpc.RpcEntityIdResolver
 import com.mikai233.common.runtime.*
 import com.mikai233.common.runtime.module.WORLD_WAKE_TASK
+import com.mikai233.common.runtime.support.ClusterNodeBootstrap
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.LaunchableNode
+import com.mikai233.common.runtime.support.entityShard
+import com.mikai233.common.runtime.support.gameWorldIds
+import com.mikai233.common.runtime.support.patchableServices
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupReq
 import com.mikai233.protocol.ProtoRpcWorld.WorldWakeupResp
 import com.mikai233.world.common.GamePatchBindings

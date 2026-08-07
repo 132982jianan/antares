@@ -5,6 +5,13 @@ import com.mikai233.common.conf.RuntimeEnv
 import com.mikai233.common.config.SYSTEM_NAME
 import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.runtime.*
+import com.mikai233.common.runtime.support.ClusterNodeBootstrap
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.GameSingletons
+import com.mikai233.common.runtime.support.LaunchableNode
+import com.mikai233.common.runtime.support.entityShard
+import com.mikai233.common.runtime.support.singletonActor
 import com.mikai233.gm.common.GmRuntimeModule
 import com.typesafe.config.Config
 import io.github.realmlabs.asteria.cluster.pekko.PekkoSingletonStartup

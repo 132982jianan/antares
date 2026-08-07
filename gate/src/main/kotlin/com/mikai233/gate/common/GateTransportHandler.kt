@@ -2,7 +2,7 @@ package com.mikai233.gate.common
 
 import com.mikai233.common.extension.logger
 import com.mikai233.common.extension.tell
-import com.mikai233.common.runtime.system
+import com.mikai233.common.runtime.support.system
 import com.mikai233.gate.node.GateNode
 import com.mikai233.gate.message.StopChannel
 import io.github.realmlabs.asteria.core.NodeState
@@ -17,6 +17,7 @@ class GateTransportHandler(private val node: GateNode) : GatewayTransportHandler
     override suspend fun connected(connection: GatewayConnection): GatewaySession {
         val session = GatewaySession(GatewaySessionId(connection.id.value), connection)
         if (node.state == NodeState.Started && node.connectionDrainer.register(session)) {
+            //检查节点状态，注册到 Drainer，创建 ChannelActor
             val channelActor = node.system.actorOf(ChannelActor.props(node, session))
             session.set(GateChannelActorKey, channelActor)
         } else {
@@ -34,6 +35,8 @@ class GateTransportHandler(private val node: GateNode) : GatewayTransportHandler
             session.close(GatewayCloseReason.Application)
             return
         }
+
+        //解码消息 → 发给 ChannelActor
         val message = node.protocolCodec.decodeClient(frame)
         channelActor.tell(message)
     }
@@ -46,6 +49,8 @@ class GateTransportHandler(private val node: GateNode) : GatewayTransportHandler
         }
         node.connectionDrainer.unregister(session)
         session.markClosed(reason)
+
+        //注销连接，停止 ChannelActor
         session.get(GateChannelActorKey)?.tell(StopChannel)
     }
 }

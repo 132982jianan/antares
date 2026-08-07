@@ -7,6 +7,11 @@ import com.mikai233.common.rpc.DefaultRpcEntityIdResolver
 import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.rpc.RpcEntityIdResolver
 import com.mikai233.common.runtime.*
+import com.mikai233.common.runtime.support.ClusterNodeBootstrap
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.LaunchableNode
+import com.mikai233.common.runtime.support.entityShard
 import com.mikai233.gate.common.GamePatchBindings
 import com.mikai233.gate.common.GateConnectionDrainer
 import com.mikai233.gate.common.GateGatewayRouter
@@ -26,6 +31,27 @@ import java.net.InetSocketAddress
 这个文件是 Antares 游戏服务器的 Gate（网关）节点 的核心启动类。它是整个分布式游戏架构中客户端的入口节点。下面逐段分析。
 
 GateNode 实现了 LaunchableNode 接口，这意味着它是一个可启动的集群节点。
+
+
+在 Antares 分布式架构中，GateNode 的角色关系如下：
+                   ┌──────────────┐
+    客户端 ──TCP──→│   GateNode   │
+                   │  (本文件)     │
+                   └──────┬───────┘
+                          │ 消息路由 (GateGatewayRouter)
+              ┌───────────┼───────────┐
+              ▼           │           ▼
+     ┌──────────┐         │   ┌──────────┐
+     │PlayerNode│  ←──────┘   │WorldNode │
+     │(承载玩家) │             │(承载世界) │
+     └──────────┘             └──────────┘
+
+
+Gate 是 无状态代理节点 ——不承载游戏实体 Actor，只负责：
+    1. TCP 连接管理和客户端协议编解码
+    2. 消息路由（根据类型转发到正确的后端节点）
+    3. 会话状态管理（登录认证状态机）
+    4. 优雅停机（连接排空）
  */
 class GateNode(
     //节点绑定的地址，默认 2334 端口
@@ -85,30 +111,50 @@ class GateNode(
     服务注册
      */
     init {
-        val patchableServices = PatchableServiceRegistry().apply {
-            register(RpcEntityIdResolver::class, DefaultRpcEntityIdResolver(GameRpcProtocol.protocol))
-        }
+        val patchableServices = PatchableServiceRegistry()
+
+        //RPC 实体 ID 解析器，用于 RPC 调用时解析目标实体的 ID
+        patchableServices.register(RpcEntityIdResolver::class, DefaultRpcEntityIdResolver(GameRpcProtocol.protocol))
+
         services.register(
+            //Gate 特有的补丁绑定，包含 patchableServices 和 Gate 的消息处理器注册表 PROTOBUF_REGISTRY ，支持热更新消息处理
             GamePatchBindings::class,
             GamePatchBindings(
                 services = patchableServices,
                 gateMessageRegistry = GeneratedGateNodeDispatchers.PROTOBUF_REGISTRY,
             ),
         )
+
+        //可热更新的服务注册表，允许运行时动态替换服务实现
         services.register(PatchableServiceRegistry::class, patchableServices)
     }
 
+    /*
+    启动流程
+     */
     override suspend fun launch() {
+        //???
         clusterNode.launch(
+            //创建 GateShutdownListenerActor ，监听分布式 PubSub 的 GATE_DRAIN_TOPIC 主题，用于协调停机
+            //  在集群启动后执行：
             afterClusterModules = listOf(GateGatewayTransportModule(this)),
             onStateChange = ::updateState,
         ) {
+            //注册 Gate 角色
+            //  关键区别 ：Gate 节点只注册了 entity 的 代理访问 ，没有定义 actor { ... } 实现。这意味着 Gate 通过 ShardRegion 将消息转发到真正运行 PlayerActor 的 Player 节点。
             role(GameRoles.Gate)
+
+            //注册 PlayerActor 实体分片（3000 个分片，但只做代理）
             entity<Long>(GameEntityKinds.PlayerActor) {
+                // 声明由 Player 角色承载
                 role(GameRoles.Player)
+                // 分片数量（3000）
                 shardCount = PLAYER_SHARD_NUM
+                // 分片提取器：根据 entityId 计算归属分片
                 extractor(GameRpcProtocol.playerShardExtractor(this@GateNode))
             }
+
+            //注册 WorldActor 实体分片（3000 个分片，但只做代理）
             entity<Long>(GameEntityKinds.WorldActor) {
                 role(GameRoles.World)
                 shardCount = WORLD_SHARD_NUM
@@ -117,6 +163,13 @@ class GateNode(
         }
     }
 
+    /*
+    状态变更处理
+        当节点进入 Stopping 状态时，触发连接排空：
+            - GateConnectionDrainer.beginDrain() 设置 draining 标志
+            - 后续新连接会被拒绝（ register() 返回 false，session 立即关闭）
+            - 已有连接在后续流程中被逐步关闭
+     */
     private fun updateState(newState: NodeState) {
         currentState = newState
         if (newState == NodeState.Stopping) {
@@ -126,21 +179,27 @@ class GateNode(
 }
 
 internal class Cli(runtimeEnv: RuntimeEnv) {
+    //机器 IP Gate 绑定地址
     @Parameter(names = ["-h", "--host"], description = "host")
     var host: String = runtimeEnv.machineIp
 
+    //2334 Gate 绑定端口
     @Parameter(names = ["-p", "--port"], description = "port")
     var port: Int = 2334
 
+    //gate.conf Typesafe Config 配置文件
     @Parameter(names = ["-c", "--conf"], description = "conf")
     var conf: String = "gate.conf"
 
+    //环境变量 ZooKeeper 连接地址
     @Parameter(names = ["-z", "--zookeeper"], description = "zookeeper")
     var zookeeper: String = runtimeEnv.zookeeperConnect
 
+    //SYSTEM_NAME 系统名称
     @Parameter(names = ["-n", "--name"], description = "system name")
     var name: String = SYSTEM_NAME
 
+    //gate-{port} 自定义节点 ID
     @Parameter(names = ["-i", "--node-id"], description = "runtime node id")
     var nodeId: String? = null
 }

@@ -8,6 +8,14 @@ import com.mikai233.common.extension.ask
 import com.mikai233.common.extension.tell
 import com.mikai233.common.message.Message
 import com.mikai233.common.runtime.*
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.broadcastRouter
+import com.mikai233.common.runtime.support.coroutineScope
+import com.mikai233.common.runtime.support.gameTimeSource
+import com.mikai233.common.runtime.support.gameWorldIds
+import com.mikai233.common.runtime.support.localEntityRegistry
+import com.mikai233.common.runtime.support.system
+import com.mikai233.common.runtime.support.worldRuntimeStateStore
 import com.mikai233.common.time.ActorGameTime
 import com.mikai233.protocol.ProtoRpcWorld.WorldShutdownAck
 import com.mikai233.protocol.ProtoSystem.GmReq

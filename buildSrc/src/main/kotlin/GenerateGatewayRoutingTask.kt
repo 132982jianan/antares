@@ -289,7 +289,7 @@ abstract class GenerateGatewayRoutingTask : DefaultTask() {
     private fun buildResolveTargetHelper(): FunSpec {
         val routeTarget = ClassName("io.github.realmlabs.asteria.message", "RouteTarget")
         val entityKind = ClassName("io.github.realmlabs.asteria.core", "EntityKind")
-        val gameEntityKinds = ClassName("com.mikai233.common.runtime", "GameEntityKinds")
+        val gameEntityKinds = ClassName("com.mikai233.common.runtime.support", "GameEntityKinds")
         val gatewayRoutes = ClassName("com.mikai233.common.message", "GatewayRoutes")
         return FunSpec.builder("resolveTarget")
             .addModifiers(com.squareup.kotlinpoet.KModifier.PRIVATE)

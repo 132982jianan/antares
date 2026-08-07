@@ -21,12 +21,18 @@ class GateGatewayTransportModule(
     private var transport: NettyTcpGatewayServerTransport? = null
 
     override suspend fun start(context: ModuleContext) {
+        //创建 GateShutdownListenerActor ，监听分布式 PubSub 的 GATE_DRAIN_TOPIC 主题，用于协调停机
         context.services.get(ActorSystem::class)
             .actorOf(GateShutdownListenerActor.props(node), GateShutdownListenerActor.Name)
+
         val repository = context.services.get(RuntimeConfigRepository::class)
+
+        //从 ZooKeeper 读取 Netty 配置（host/port）
         val config = repository.get<NettyConfig>(nettyConfigPath(node.nodeId))?.value
             ?: repository.get<NettyConfig>(nettyConfigPath("gate"))?.value
             ?: error("runtime config ${nettyConfigPath(node.nodeId)} or ${nettyConfigPath("gate")} not found")
+
+        //启动 Netty TCP 网关服务器 ，使用自定义管道：
         val gatewayTransport = NettyTcpGatewayServerTransport(
             NettyGatewayServerOptions(
                 host = config.host,
@@ -37,7 +43,9 @@ class GateGatewayTransportModule(
             metrics = context.services.find(Metrics::class) ?: NoopMetrics,
             pipelineInstaller = GateNettyPipeline.installer(node.protocolCodec),
         )
+        //连接处理器
         gatewayTransport.start(GateTransportHandler(node))
+
         transport = gatewayTransport
     }
 

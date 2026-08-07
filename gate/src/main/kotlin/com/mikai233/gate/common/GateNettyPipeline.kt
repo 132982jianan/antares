@@ -27,8 +27,11 @@ object GateNettyPipeline {
     ) {
         pipeline()
             .addLast(FrameCodec(context.options.maxFrameLength))
+            //AES
             .addLast(CryptoCodec())
+            //序号校验
             .addLast(PacketCodec())
+            //压缩
             .addLast(LZ4Codec())
             .addLast(ProtobufCodec())
             .addLast(

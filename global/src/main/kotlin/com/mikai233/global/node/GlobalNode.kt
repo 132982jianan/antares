@@ -7,6 +7,13 @@ import com.mikai233.common.rpc.DefaultRpcEntityIdResolver
 import com.mikai233.common.rpc.GameRpcProtocol
 import com.mikai233.common.rpc.RpcEntityIdResolver
 import com.mikai233.common.runtime.*
+import com.mikai233.common.runtime.support.ClusterNodeBootstrap
+import com.mikai233.common.runtime.support.GameEntityKinds
+import com.mikai233.common.runtime.support.GameRoles
+import com.mikai233.common.runtime.support.GameSingletons
+import com.mikai233.common.runtime.support.LaunchableNode
+import com.mikai233.common.runtime.support.entityShard
+import com.mikai233.common.runtime.support.singletonActor
 import com.mikai233.global.actor.ShutdownCoordinatorActor
 import com.mikai233.global.actor.WorkerActor
 import com.mikai233.global.common.GamePatchBindings

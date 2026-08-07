@@ -2,7 +2,7 @@ package com.mikai233.player
 
 import com.beust.jcommander.JCommander
 import com.mikai233.common.conf.RuntimeEnv
-import com.mikai233.common.runtime.awaitTermination
+import com.mikai233.common.runtime.support.awaitTermination
 import com.mikai233.player.node.Cli
 import com.mikai233.player.node.PlayerNode
 import com.typesafe.config.ConfigFactory

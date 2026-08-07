@@ -8,10 +8,10 @@ import com.mikai233.common.extension.encodeActorRef
 import com.mikai233.common.extension.invokeOnTargetMode
 import com.mikai233.common.extension.tell
 import com.mikai233.common.message.formatMessage
-import com.mikai233.common.runtime.gameTimeSource
+import com.mikai233.common.runtime.support.gameTimeSource
 import com.mikai233.common.runtime.recordMessageDispatch
-import com.mikai233.common.runtime.playerBroadcastEventBus
-import com.mikai233.common.runtime.system
+import com.mikai233.common.runtime.support.playerBroadcastEventBus
+import com.mikai233.common.runtime.support.system
 import com.mikai233.common.time.ActorGameTime
 import com.mikai233.gate.node.GateNode
 import com.mikai233.gate.crypto.AESCipher

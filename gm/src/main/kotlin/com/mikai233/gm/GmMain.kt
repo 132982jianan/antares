@@ -2,7 +2,7 @@ package com.mikai233.gm
 
 import com.beust.jcommander.JCommander
 import com.mikai233.common.conf.RuntimeEnv
-import com.mikai233.common.runtime.awaitTermination
+import com.mikai233.common.runtime.support.awaitTermination
 import com.mikai233.gm.node.Cli
 import com.mikai233.gm.node.GmNode
 import com.typesafe.config.ConfigFactory

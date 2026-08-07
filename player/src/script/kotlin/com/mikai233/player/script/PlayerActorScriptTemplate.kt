@@ -1,8 +1,8 @@
 package com.mikai233.player.script
 
 import com.mikai233.common.extension.logger
-import com.mikai233.common.runtime.gameConfigSnapshot
-import com.mikai233.common.runtime.gameWorldConfigs
+import com.mikai233.common.runtime.support.gameConfigSnapshot
+import com.mikai233.common.runtime.support.gameWorldConfigs
 import com.mikai233.config.luban.tbItem
 import com.mikai233.player.common.PlayerActor
 import io.github.realmlabs.asteria.script.ActorScript

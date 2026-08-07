@@ -1,13 +1,18 @@
-package com.mikai233.common.runtime
+package com.mikai233.common.runtime.support
 
 import com.mikai233.common.broadcast.PlayerBroadcastEventBus
 import com.mikai233.common.config.*
 import com.mikai233.common.db.MongoDB
 import com.mikai233.common.extension.asyncZookeeperClient
+import com.mikai233.common.runtime.GameClusterApplicationFactories
+import com.mikai233.common.runtime.GameClusterApplicationRequest
+import com.mikai233.common.runtime.LocalEntityRegistry
+import com.mikai233.common.runtime.WorldRuntimeStateStore
 import com.mikai233.common.runtime.module.*
 import com.mikai233.common.runtime.patch.ConfigCenterPatchArtifactStore
 import com.mikai233.common.runtime.patch.ConfigCenterRuntimePatchRepository
 import com.mikai233.common.runtime.patch.GamePatchStoreModule
+import com.mikai233.common.runtime.runtimeVersion
 import com.mikai233.common.time.GameTimeOverrideStore
 import com.mikai233.common.time.GameTimeSource
 import com.typesafe.config.Config
@@ -39,35 +44,6 @@ import java.net.InetSocketAddress
 import kotlin.random.Random
 import kotlin.random.nextLong
 import kotlin.time.Duration.Companion.milliseconds
-
-object GameRoles {
-    const val Player = "Player"
-    const val Gate = "Gate"
-    const val World = "World"
-    const val Global = "Global"
-    const val Gm = "Gm"
-
-    val all: List<String> = listOf(Player, Gate, World, Global, Gm)
-}
-
-object GameEntityKinds {
-    const val PlayerActor = "PlayerActor"
-    const val WorldActor = "WorldActor"
-
-    val all: List<String> = listOf(PlayerActor, WorldActor)
-}
-
-object GameSingletons {
-    const val Worker = "worker"
-    const val Monitor = "monitor"
-    const val ShutdownCoordinator = "shutdownCoordinator"
-
-    val all: List<String> = listOf(Worker, Monitor, ShutdownCoordinator)
-}
-
-interface LaunchableNode : NodeRuntime {
-    suspend fun launch()
-}
 
 val NodeRuntime.system: ActorSystem
     get() = services.get(ActorSystem::class)
@@ -144,6 +120,8 @@ class ClusterNodeBootstrap(
         beforeClusterModules: List<AsteriaModule> = emptyList(),
         afterClusterModules: List<AsteriaModule> = emptyList(),
         onStateChange: (NodeState) -> Unit,
+
+        // DSL模块
         configure: AsteriaApplicationBuilder.() -> Unit,
     ) {
         val application = GameClusterApplicationFactories.select(config).build(
@@ -153,9 +131,20 @@ class ClusterNodeBootstrap(
                 nodeId = nodeId,
                 config = config,
                 sameJvm = sameJvm,
+
+                //加载通用模块 (commonModules)
                 commonModules = commonModules(),
+
+                //加载 beforeClusterModules（Gate 无）
                 beforeClusterModules = beforeClusterModules,
+
+                //加载 afterClusterModules → GateGatewayTransportModule（启动 Netty TCP 网关）
                 afterClusterModules = afterClusterModules + GameTimeReloadModule(nodeId),
+
+                // 执行 DSL 配置块：
+                //   - 注册 Gate 角色
+                //   - 注册 PlayerActor 实体分片（3000 个分片，但只做代理）
+                //   - 注册 WorldActor 实体分片（3000 个分片，但只做代理）
                 configure = configure,
             ),
         )

@@ -1,9 +1,9 @@
 package com.mikai233.player.common
 
-import com.mikai233.common.runtime.GameEntityKinds
+import com.mikai233.common.runtime.support.GameEntityKinds
 import com.mikai233.common.runtime.StartupLikeReloadPlan
 import com.mikai233.common.runtime.StartupLikeReloadResult
-import com.mikai233.common.runtime.localEntityRegistry
+import com.mikai233.common.runtime.support.localEntityRegistry
 import com.mikai233.common.runtime.stopForReload
 import com.mikai233.player.node.PlayerNode
 import com.mikai233.player.message.HandoffPlayer

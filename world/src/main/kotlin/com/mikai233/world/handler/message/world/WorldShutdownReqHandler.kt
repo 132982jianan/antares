@@ -3,7 +3,7 @@ package com.mikai233.world.handler.message.world
 import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.extension.decodeActorRef
 import com.mikai233.common.message.DispatcherKeys
-import com.mikai233.common.runtime.system
+import com.mikai233.common.runtime.support.system
 import com.mikai233.protocol.ProtoRpcWorld.WorldShutdownReq
 import com.mikai233.world.common.WorldHandlerContext
 import com.mikai233.world.common.WorldMessageHandler
