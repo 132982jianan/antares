@@ -6,8 +6,8 @@ import com.mikai233.protocol.ProtoChat.ChatChannel
 import com.mikai233.protocol.ProtoChat.ChatMessageNotify
 import com.mikai233.protocol.ProtoRpcChat.RpcChatMessage
 import com.mikai233.protocol.ProtoRpcChat.WorldChatBroadcastReq
-import com.mikai233.world.WorldHandlerContext
-import com.mikai233.world.WorldMessageHandler
+import com.mikai233.world.common.WorldHandlerContext
+import com.mikai233.world.common.WorldMessageHandler
 import io.github.realmlabs.asteria.message.AsteriaMessageHandler
 
 @AllOpen

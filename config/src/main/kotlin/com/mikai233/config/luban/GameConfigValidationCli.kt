@@ -15,7 +15,7 @@ private enum class ValidationMode {
     QUERIES,
 }
 
-fun main(args: Array<String>) = runBlocking {
+fun main(args: Array<String>): kotlin.Unit = runBlocking {
     require(args.isNotEmpty()) {
         "usage: GameConfigValidationCli <tables|queries> [generatedDataDir]"
     }

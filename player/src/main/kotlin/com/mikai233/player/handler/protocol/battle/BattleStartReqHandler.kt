@@ -4,8 +4,8 @@ import com.mikai233.common.annotation.AllOpen
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.common.message.GatewayRoutes
 import com.mikai233.common.runtime.battleControlClient
-import com.mikai233.player.PlayerHandlerContext
-import com.mikai233.player.PlayerMessageHandler
+import com.mikai233.player.common.PlayerHandlerContext
+import com.mikai233.player.common.PlayerMessageHandler
 import com.mikai233.protocol.ProtoBattle.BattleStartReq
 import com.mikai233.protocol.ProtoBattle.BattleStartResp
 import com.mikai233.protocol.ProtoBattle.BattleStartResult

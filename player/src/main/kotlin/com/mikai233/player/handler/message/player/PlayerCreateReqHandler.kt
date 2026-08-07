@@ -6,8 +6,8 @@ import com.mikai233.common.extension.decodeActorRef
 import com.mikai233.common.extension.tell
 import com.mikai233.common.message.DispatcherKeys
 import com.mikai233.common.runtime.system
-import com.mikai233.player.PlayerHandlerContext
-import com.mikai233.player.PlayerMessageHandler
+import com.mikai233.player.common.PlayerHandlerContext
+import com.mikai233.player.common.PlayerMessageHandler
 import com.mikai233.protocol.ProtoLogin
 import com.mikai233.protocol.ProtoRpcPlayer.*
 import io.github.realmlabs.asteria.message.AsteriaMessageHandler
